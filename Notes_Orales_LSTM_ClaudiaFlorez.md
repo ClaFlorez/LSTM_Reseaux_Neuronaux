@@ -36,23 +36,74 @@ Son cœur est la **cellule mémoire** (*cell state*), un flux d’information pr
 
 ## ⚙️ Fonctionnement étape par étape
 
-### 🔹 1. Porte d’oubli
-La porte d’oubli choisit quelles parties de la mémoire passée \(C_{t-1}\) doivent être effacées :  
-$$ f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f) $$
+# 🧮 Les Formules du LSTM (Long Short-Term Memory)
 
-### 🔹 2. Porte d’entrée
-Elle détermine quelles nouvelles informations \(\tilde{C}_t\) seront ajoutées :  
-$$ i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i) $$  
-$$ \tilde{C}_t = \tanh(W_C \cdot [h_{t-1}, x_t] + b_C) $$
+Le LSTM est une version améliorée du réseau récurrent (RNN) qui permet de **mémoriser des informations sur de longues séquences**.  
+Il utilise trois *portes principales* — oubli, entrée et sortie — pour gérer le flux d’informations.
 
-### 🔹 3. Mise à jour de la mémoire
-La cellule mémoire est mise à jour selon :  
-$$ C_t = f_t * C_{t-1} + i_t * \tilde{C}_t $$
+À chaque étape temporelle \( t \), le modèle reçoit :
+- \( x^{(t)} \) : l’entrée actuelle (par exemple, un mot)
+- \( h^{(t-1)} \) : la sortie précédente (mémoire courte)
+- \( c^{(t-1)} \) : l’état de la cellule précédente (mémoire longue)
 
-### 🔹 4. Porte de sortie et état caché
-Enfin, la sortie est calculée :  
-$$ o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o) $$  
-$$ h_t = o_t * \tanh(C_t) $$
+---
+
+## 🟧 1. Porte d’Oubli (*Forget Gate*)
+
+Décide quelles informations de la mémoire précédente \( c^{(t-1)} \) doivent être **supprimées ou conservées**.
+
+\[
+f^{(t)} = \sigma(W_f \cdot [h^{(t-1)}, x^{(t)}] + b_f)
+\]
+
+- \( f^{(t)} \) prend des valeurs entre 0 et 1 :  
+  - 0 → oubli total  
+  - 1 → conservation complète
+
+---
+
+## 🟩 2. Porte d’Entrée (*Input Gate*)
+
+Contrôle **quelle nouvelle information** doit être ajoutée à la mémoire.
+
+\[
+i^{(t)} = \sigma(W_i \cdot [h^{(t-1)}, x^{(t)}] + b_i)
+\]
+\[
+\tilde{c}^{(t)} = \tanh(W_c \cdot [h^{(t-1)}, x^{(t)}] + b_c)
+\]
+
+- \( i^{(t)} \) : décide combien de la nouvelle information sera intégrée  
+- \( \tilde{c}^{(t)} \) : vecteur de **nouvelles valeurs candidates** à ajouter à la mémoire
+
+---
+
+## 🧱 3. Mise à Jour de la Mémoire (*Cell State Update*)
+
+Combine l’ancienne mémoire \( c^{(t-1)} \) et la nouvelle pour former l’état actualisé \( c^{(t)} \) :
+
+\[
+c^{(t)} = f^{(t)} \odot c^{(t-1)} + i^{(t)} \odot \tilde{c}^{(t)}
+\]
+
+où \( \odot \) représente la **multiplication élément par élément** (*Hadamard product*).
+
+---
+
+## 🟦 4. Porte de Sortie (*Output Gate*)
+
+Décide **quelle partie de la mémoire** sera visible dans la sortie finale \( h^{(t)} \).
+
+\[
+o^{(t)} = \sigma(W_o \cdot [h^{(t-1)}, x^{(t)}] + b_o)
+\]
+\[
+h^{(t)} = o^{(t)} \odot \tanh(c^{(t)})
+\]
+
+- \( o^{(t)} \) : filtre la sortie  
+- \( h^{(t)} \) : sortie réelle du LSTM (et entrée du pas suiva
+
 
 > Ces formules assurent que l’information utile est conservée pendant de longues séquences, tout en évitant l’explosion ou la disparition des gradients.
 
