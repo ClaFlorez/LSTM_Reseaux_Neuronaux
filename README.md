@@ -29,5 +29,5 @@ Vous y apprendrez :
 
 Si vous aimez apprendre avec des exemples concrets et des explications simples,  
 🎬 **retrouvez la vidéo complète et d’autres tutoriels sur ma chaîne YouTube :**  
-👉 [Claud-IA – Apprenez l’intelligence artificielle moderne](https://www.youtube.com/@claudia-insights)
+👉 [Claud-IA – Apprenez l’intelligence artificielle moderne](https://www.youtube.com/watch?v=RcP6T0r8oNA&t=17s)
 
