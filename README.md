@@ -26,3 +26,8 @@ Vous y apprendrez :
 ---
 
 🔗 Ce notebook fait partie du répertoire **LSTM_Réseaux_Neuronaux** du projet **Claud-IA**, dont la mission est de rendre l’intelligence artificielle **accessible, claire et pratique**.
+
+Si vous aimez apprendre avec des exemples concrets et des explications simples,  
+🎬 **retrouvez la vidéo complète et d’autres tutoriels sur ma chaîne YouTube :**  
+👉 [Claud-IA – Apprenez l’intelligence artificielle moderne](https://www.youtube.com/@claudia-insights)
+
